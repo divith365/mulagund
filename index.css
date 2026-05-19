@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Outfit", sans-serif;
+  
+  --color-brand-blue: #0A192F;
+  --color-brand-gold: #FFD700;
+  --color-brand-electric: #00E5FF;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-brand-blue antialiased;
+  }
+}
+
+.dark-to-bright-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.text-glow {
+  text-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+}
+
