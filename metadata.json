@@ -1,6 +1,0 @@
-{
-  "name": "Edison Amp - Illuminating the Future",
-  "description": "Premium LED lighting, industrial fans, and electrical solutions for commercial and public spaces. Experience the transition from darkness to clarity.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
