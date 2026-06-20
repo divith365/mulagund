@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Old vs New Regime — Tax Comparison · AY 2026-27</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0d2240;            /* masthead + dark structure — matches main site navy */
+    --navy-mid:#1a3a6b;
+    --blue:#1e5fa8;
+    --bg:#f5f7fa;              /* light page background — matches main site off-white */
+    --surface:#ffffff;         /* white cards */
+    --surface-2:#f5f7fa;
+    --border:#dde3ec;
+    --border-strong:#c7d0de;
+    --text:#1a1a2e;            /* matches main site text */
+    --text-soft:#3b4b6b;
+    --muted:#5a6a7e;           /* matches main site text-light */
+    --input-bg:#ffffff;
+    --accent:#c9a84c;          /* matches main site gold */
+    --accent-bright:#e8c96e;   /* matches main site gold-light */
+    --accent-soft:rgba(201,168,76,.14);
+    --good:#1f9d62;            /* savings green */
+    --neg:#b23a48;             /* loss red */
+    --serif:'Playfair Display', Georgia, serif;
+    --ui:'DM Sans', system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--ui);line-height:1.5;-webkit-font-smoothing:antialiased;}
+
+  /* Header (navy, unchanged) */
+  .masthead{background:var(--navy);border-bottom:3px solid var(--accent-bright);padding:22px 24px 18px;}
+  .masthead-inner{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;}
+  .brand{display:flex;flex-direction:column;gap:3px;}
+  .brand .eyebrow{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent-bright);}
+  .brand h1{font-family:var(--serif);font-weight:700;font-size:30px;margin:0;letter-spacing:.01em;line-height:1.05;color:#fff;}
+  .ay-badge{font-family:var(--serif);text-align:right;border:1px solid rgba(255,255,255,.28);border-radius:4px;padding:8px 14px;background:rgba(255,255,255,.05);}
+  .ay-badge .small{font-family:var(--ui);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent-bright);display:block;}
+  .ay-badge .big{font-size:20px;font-weight:700;color:#fff;}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:26px 24px 60px;display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;}
+  @media (max-width:980px){ .wrap{grid-template-columns:1fr;padding:20px 16px 48px;} }
+
+  /* Cards (white) */
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;margin-bottom:20px;overflow:hidden;box-shadow:0 1px 2px rgba(22,35,61,.04);}
+  .card-head{display:flex;align-items:center;gap:11px;padding:12px 18px;border-bottom:1px solid var(--border);background:var(--surface-2);}
+  .card-head .num{font-weight:700;color:#fff;background:var(--navy);font-size:12px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
+  .card-head h2{font-family:var(--serif);font-size:18px;margin:0;font-weight:700;color:var(--navy);}
+  .card-body{padding:16px 18px 18px;}
+
+  .field{margin-bottom:14px;}
+  .field:last-child{margin-bottom:0;}
+  .field > label{display:block;font-size:12.5px;font-weight:600;color:var(--text-soft);margin-bottom:5px;}
+  .field .hint{font-size:11px;color:var(--muted);font-weight:400;margin-top:4px;}
+  .field .cap-note{font-size:11px;color:var(--accent);font-weight:600;margin-top:4px;display:none;}
+  .input-money{position:relative;}
+  .input-money::before{content:"\20B9";position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-family:var(--serif);font-size:15px;}
+  input[type=number],input[type=text]{width:100%;font-family:var(--serif);font-size:16px;color:var(--text);padding:10px 12px 10px 26px;border:1px solid var(--border-strong);border-radius:5px;background:var(--input-bg);transition:border-color .15s,box-shadow .15s;}
+  input[type=text]{padding-left:12px;}
+  input::placeholder{color:#9aa6bf;}
+  input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
+  input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+  input[type=number]{-moz-appearance:textfield;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:480px){ .row2{grid-template-columns:1fr;} }
+
+  .seg{display:inline-flex;border:1px solid var(--border-strong);border-radius:5px;overflow:hidden;background:#fff;flex-wrap:wrap;}
+  .seg button{font-family:var(--ui);font-size:12.5px;font-weight:600;border:none;background:#fff;color:var(--text-soft);padding:8px 13px;cursor:pointer;border-right:1px solid var(--border);transition:background .15s,color .15s;}
+  .seg button:last-child{border-right:none;}
+  .seg button.active{background:var(--navy);color:#fff;}
+  .seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;}
+
+  .toggle-line{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--text-soft);font-weight:600;margin-top:8px;cursor:pointer;user-select:none;}
+  .toggle-line input{width:16px;height:16px;accent-color:var(--navy);cursor:pointer;}
+
+  .sub-deduct{margin-top:12px;padding:14px;background:var(--surface-2);border:1px dashed var(--border-strong);border-radius:6px;}
+  .hra-result{font-family:var(--serif);font-size:14px;color:var(--text-soft);margin-top:10px;padding-top:10px;border-top:1px solid var(--border);}
+  .hra-result b{color:var(--accent);font-size:16px;}
+  .hidden{display:none !important;}
+
+  .regime-tag{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:3px;margin-left:6px;}
+  .tag-both{background:rgba(31,157,98,.14);color:var(--good);}
+  .tag-old{background:rgba(176,125,18,.16);color:var(--accent);}
+
+  .btns{display:flex;gap:12px;}
+  .btn{font-family:var(--ui);font-size:13px;font-weight:600;padding:11px 18px;border-radius:5px;cursor:pointer;border:1px solid var(--navy);transition:transform .1s,background .15s;}
+  .btn:active{transform:translateY(1px);}
+  .btn-print{background:var(--navy);color:#fff;}
+  .btn-reset{background:#fff;color:var(--navy);}
+  .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+  /* Comparison panel (white) */
+  .result{position:sticky;top:18px;}
+  .verdict{background:var(--surface);border:1px solid var(--accent);border-radius:8px;padding:16px 20px;margin-bottom:18px;text-align:center;box-shadow:0 0 0 4px var(--accent-soft);}
+  .verdict .eyebrow{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);}
+  .verdict .headline{font-family:var(--serif);font-size:23px;font-weight:700;margin:4px 0 2px;color:var(--navy);}
+  .verdict .save{font-size:14px;color:var(--good);font-weight:700;}
+  .verdict .save .amt{font-family:var(--serif);font-size:18px;}
+
+  .cmp{background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(22,35,61,.04);}
+  .cmp-table{width:100%;border-collapse:collapse;font-family:var(--serif);}
+  .cmp-table th,.cmp-table td{padding:9px 14px;font-size:14px;text-align:right;border-bottom:1px solid var(--border);font-variant-numeric:tabular-nums;}
+  .cmp-table th{font-family:var(--ui);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:700;background:var(--surface-2);}
+  .cmp-table thead th:first-child{text-align:left;}
+  .cmp-table td.lbl{text-align:left;color:var(--text-soft);}
+  .cmp-table td.lbl.indent{padding-left:24px;color:var(--muted);font-size:13px;}
+  .cmp-table .col-old,.cmp-table .col-new{color:var(--text);width:30%;}
+  .cmp-table td.cheaper{background:var(--accent-soft);}
+  .cmp-table .row-rule td{padding:0;border-bottom:1.5px solid var(--border-strong);}
+  .cmp-table .row-total td{font-weight:700;font-size:17px;color:var(--navy);background:var(--surface-2);}
+  .cmp-table .row-total td.lbl{color:var(--navy);}
+  .cmp-table .neg{color:var(--neg);}
+  .badge-lower{display:inline-block;font-family:var(--ui);font-size:9px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#fff;background:var(--accent);padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle;}
+
+  .relief-note{font-family:var(--ui);font-size:11px;color:var(--accent);padding:10px 16px 0;font-weight:600;}
+  .footnote{font-family:var(--ui);font-size:10.5px;color:var(--muted);padding:14px 16px 16px;line-height:1.6;}
+  .footnote b{color:var(--text-soft);}
+  .footnote ul{margin:6px 0 0;padding-left:18px;}
+  .footnote li{margin-bottom:3px;}
+
+  @media print{
+    body{background:#fff;color:#000;}
+    .masthead{background:#fff;border-bottom:2px solid #000;}
+    .brand h1,.ay-badge .big,.brand .eyebrow,.ay-badge .small{color:#000;}
+    .ay-badge{border-color:#000;}
+    .wrap{display:block;padding:0;max-width:100%;}
+    .col-form{display:none;}
+    .result{position:static;}
+    .verdict{border-color:#000;box-shadow:none;}
+    .verdict .headline,.verdict .eyebrow,.verdict .save{color:#000;}
+    .cmp{border-color:#000;}
+    .cmp-table th,.cmp-table td{color:#000;border-color:#999;}
+    .cmp-table td.cheaper{background:#eee;}
+    .badge-lower{background:#000;color:#fff;}
+    .footnote,.footnote b{color:#333;}
+    .float-btns{display:none !important;}
+  }
+
+  /* ── FLOATING WHATSAPP / CALL BUTTONS (matches main site) ── */
+  .float-btns {
+    position: fixed; bottom: 32px; right: 24px;
+    display: flex; flex-direction: column; gap: 12px; z-index: 999;
+  }
+  .float-btn {
+    width: 54px; height: 54px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    text-decoration: none; box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative; overflow: visible;
+  }
+  .float-btn:hover { transform: scale(1.15) translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+  .float-btn-wa { background: #25D366; }
+  .float-btn-call { background: var(--blue); }
+  .float-btn svg { width: 26px; height: 26px; }
+  .float-btn .tooltip {
+    position: absolute; right: 64px; top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    background: var(--navy); color: white;
+    font-family: var(--ui);
+    font-size: 13px; font-weight: 500; white-space: nowrap;
+    padding: 6px 14px; border-radius: 8px;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+  .float-btn:hover .tooltip {
+    opacity: 1; transform: translateY(-50%) translateX(0);
+  }
+  .float-btn .tooltip::after {
+    content: '';
+    position: absolute; left: 100%; top: 50%;
+    transform: translateY(-50%);
+    border: 6px solid transparent;
+    border-left-color: var(--navy);
+  }
+  .float-btn-wa::before {
+    content: '';
+    position: absolute; inset: -6px;
+    border-radius: 50%; border: 2px solid #25D366;
+    animation: waRing 2s ease-out infinite;
+    opacity: 0;
+  }
+  @keyframes waRing {
+    0% { transform: scale(0.9); opacity: 0.8; }
+    100% { transform: scale(1.5); opacity: 0; }
+  }
+  @media (max-width: 600px) {
+    .float-btns { bottom: 20px; right: 16px; gap: 10px; }
+    .float-btn { width: 48px; height: 48px; }
+    .float-btn .tooltip { display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="masthead-inner">
+      <div class="brand">
+        <span class="eyebrow">Old vs New Regime · Tax Comparison</span>
+        <h1>Income Tax Calculator</h1>
+      </div>
+      <div class="ay-badge"><span class="small">Assessment Year</span><span class="big">2026&ndash;27</span></div>
+    </div>
+  </header>
+
+  <div class="wrap">
+
+    <!-- ============ FORM ============ -->
+    <div class="col-form">
+
+      <section class="card">
+        <div class="card-head"><span class="num">1</span><h2>Assessee</h2></div>
+        <div class="card-body">
+          <div class="field"><label for="clientName">Client name <span style="font-weight:400;color:var(--muted)">(optional)</span></label><input type="text" id="clientName" placeholder=""></div>
+          <div class="field">
+            <label>Age category</label>
+            <div class="seg" id="ageSeg">
+              <button data-age="below60" class="active">Below 60</button>
+              <button data-age="senior">60 to 80</button>
+              <button data-age="super">80 &amp; above</button>
+            </div>
+            <label class="toggle-line"><input type="checkbox" id="resident" checked> Resident individual <span style="font-weight:400;color:var(--muted)">(for 87A rebate &amp; exemption set-off)</span></label>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">2</span><h2>Income from Salary</h2></div>
+        <div class="card-body">
+          <div class="field"><label for="grossSalary">Gross salary</label><div class="input-money"><input type="number" id="grossSalary" placeholder="0" inputmode="numeric"></div>
+            <div class="hint">Standard deduction is applied automatically: ₹50,000 (old) / ₹75,000 (new).</div>
+          </div>
+          <div class="field">
+            <label>HRA exemption u/s 10(13A) <span class="regime-tag tag-old">Under old regime only</span></label>
+            <div class="seg" id="hraSeg">
+              <button data-hra="amount" class="active">Enter exempt amount</button>
+              <button data-hra="calc">Calculate it</button>
+            </div>
+            <div id="hraAmountWrap" style="margin-top:10px;"><div class="input-money"><input type="number" id="hraAmount" placeholder="0" inputmode="numeric"></div></div>
+            <div class="sub-deduct hidden" id="hraCalcWrap">
+              <div class="row2">
+                <div class="field"><label for="hraBasic">Basic + DA (annual)</label><div class="input-money"><input type="number" id="hraBasic" placeholder="0" inputmode="numeric"></div></div>
+                <div class="field"><label for="hraRecd">HRA received (annual)</label><div class="input-money"><input type="number" id="hraRecd" placeholder="0" inputmode="numeric"></div></div>
+              </div>
+              <div class="field"><label for="hraRent">Rent paid (annual)</label><div class="input-money"><input type="number" id="hraRent" placeholder="0" inputmode="numeric"></div></div>
+              <label class="toggle-line"><input type="checkbox" id="hraMetro"> Metro city <span style="font-weight:400;color:var(--muted)">(50%, else 40%)</span></label>
+              <div class="hra-result">Exempt HRA = <b id="hraExemptOut">₹0</b></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">3</span><h2>Income from House Property</h2></div>
+        <div class="card-body">
+          <label class="toggle-line" style="margin-top:0;"><input type="checkbox" id="selfOccupied" checked> Self-occupied <span style="font-weight:400;color:var(--muted)">(interest capped ₹2,00,000; not allowed in new regime)</span></label>
+          <div id="letOutWrap" class="sub-deduct hidden">
+            <div class="row2">
+              <div class="field"><label for="rent">Annual rent received</label><div class="input-money"><input type="number" id="rent" placeholder="0" inputmode="numeric"></div></div>
+              <div class="field"><label for="munTax">Municipal taxes paid</label><div class="input-money"><input type="number" id="munTax" placeholder="0" inputmode="numeric"></div></div>
+            </div>
+            <div class="hint">30% standard deduction u/s 24(a) applied automatically. In new regime, let-out loss is not set off against other heads.</div>
+          </div>
+          <div class="field" style="margin-top:14px;"><label for="loan24">Interest on home loan u/s 24(b)</label><div class="input-money"><input type="number" id="loan24" placeholder="0" inputmode="numeric"></div><div class="cap-note" id="loan24Cap"></div></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">4</span><h2>Capital Gains <span class="regime-tag tag-both">Same in both</span></h2></div>
+        <div class="card-body">
+          <div class="field"><label for="stcg111A">STCG u/s 111A — listed equity / equity MF @ 20%</label><div class="input-money"><input type="number" id="stcg111A" placeholder="0" inputmode="numeric"></div></div>
+          <div class="field"><label for="ltcg112A">LTCG u/s 112A — listed equity / equity MF @ 12.5%</label><div class="input-money"><input type="number" id="ltcg112A" placeholder="0" inputmode="numeric"></div><div class="hint">Enter gross gain. First ₹1,25,000 is exempt automatically.</div></div>
+          <div class="field"><label for="ltcg112">LTCG u/s 112 — property / gold / other @ 12.5%</label><div class="input-money"><input type="number" id="ltcg112" placeholder="0" inputmode="numeric"></div><div class="hint">Without indexation. For pre-23 Jul 2024 property, the 20%-with-indexation option must be checked manually.</div></div>
+          <div class="field"><label for="stcgSlab">Other STCG — taxed at slab rate</label><div class="input-money"><input type="number" id="stcgSlab" placeholder="0" inputmode="numeric"></div><div class="hint">Short-term gains on property/debt etc. taxed at normal slab.</div></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">5</span><h2>Other income</h2></div>
+        <div class="card-body">
+          <div class="row2">
+            <div class="field"><label for="bizIncome">Business / Profession (net)</label><div class="input-money"><input type="number" id="bizIncome" placeholder="0" inputmode="numeric"></div></div>
+            <div class="field"><label for="otherInc">Other Sources</label><div class="input-money"><input type="number" id="otherInc" placeholder="0" inputmode="numeric"></div><div class="hint">Bank/FD interest, dividends, etc.</div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-head"><span class="num">6</span><h2>Chapter VI-A deductions <span class="regime-tag tag-old">Old only*</span></h2></div>
+        <div class="card-body">
+          <div class="field"><label for="d80c">80C — LIC, PPF, ELSS, EPF, tuition, principal</label><div class="input-money"><input type="number" id="d80c" value="150000" inputmode="numeric"></div><div class="cap-note" id="d80cCap"></div></div>
+          <div class="field"><label for="d80ccd1b">80CCD(1B) — additional NPS</label><div class="input-money"><input type="number" id="d80ccd1b" value="50000" inputmode="numeric"></div><div class="cap-note" id="d80ccd1bCap"></div></div>
+          <div class="field"><label for="d80ccd2">80CCD(2) — employer NPS <span class="regime-tag tag-both">Both</span></label><div class="input-money"><input type="number" id="d80ccd2" placeholder="0" inputmode="numeric"></div><div class="hint">Allowed in both regimes. 10% (old) / 14% (new) of Basic+DA.</div></div>
+          <div class="field"><label for="d80d">80D — health insurance / medical</label><div class="input-money"><input type="number" id="d80d" value="75000" inputmode="numeric"></div><div class="cap-note" id="d80dCap"></div></div>
+          <div class="field"><label for="d80tta" id="ttaLabel">80TTA — savings bank interest</label><div class="input-money"><input type="number" id="d80tta" placeholder="0" inputmode="numeric"></div><div class="cap-note" id="d80ttaCap"></div></div>
+          <div class="row2">
+            <div class="field"><label for="d80e">80E — education loan interest</label><div class="input-money"><input type="number" id="d80e" placeholder="0" inputmode="numeric"></div></div>
+            <div class="field"><label for="d80g">80G — donations (net)</label><div class="input-money"><input type="number" id="d80g" placeholder="0" inputmode="numeric"></div></div>
+          </div>
+          <div class="field"><label for="d80other">Other Chapter VI-A (80U, 80DD, 80DDB, 80EEA…)</label><div class="input-money"><input type="number" id="d80other" placeholder="0" inputmode="numeric"></div></div>
+          <div class="btns" style="margin-top:6px;">
+            <button class="btn btn-print" onclick="window.print()">Print comparison</button>
+            <button class="btn btn-reset" id="resetBtn">Reset</button>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ============ RESULT ============ -->
+    <div class="col-result">
+      <div class="result">
+        <div class="verdict" id="verdict">
+          <div class="eyebrow" id="vName">Tax Comparison · AY 2026-27</div>
+          <div class="headline" id="vHead">Enter income to compare</div>
+          <div class="save" id="vSave"></div>
+        </div>
+
+        <div class="cmp">
+          <table class="cmp-table">
+            <thead>
+              <tr>
+                <th>Particulars</th>
+                <th class="col-old" id="thOld">Old Regime</th>
+                <th class="col-new" id="thNew">New Regime</th>
+              </tr>
+            </thead>
+            <tbody id="cmpBody"></tbody>
+          </table>
+          <div class="relief-note" id="reliefNote" style="display:none;"></div>
+          <div class="footnote">
+            <b>* New-regime treatment:</b> standard deduction ₹75,000; HRA, 80C, 80CCD(1B), 80D, 80TTA, 80E, 80G and self-occupied 24(b) interest are <b>not</b> allowed. Only 80CCD(2) and employer-side items carry over. Capital-gains rates (111A 20%, 112A/112 12.5%) are identical in both regimes.
+            <ul>
+              <li>Section 87A rebate applies to normal-income tax only, not to capital-gains tax — old: income ≤ ₹5,00,000; new: ≤ ₹12,00,000 (with marginal relief).</li>
+              <li>For residents, unused basic exemption is set off against capital gains automatically.</li>
+              <li>Where total income exceeds ₹50,00,000 with capital gains, the 15% surcharge cap on gains and marginal relief should be reviewed manually.</li>
+              <li>Always reconcile income &amp; TDS against AIS / Form 26AS before filing.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+<script>
+(function(){
+  "use strict";
+  var age="below60", hraMode="amount";
+  function num(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)||v<0?0:v;}
+  function fmt(n){return "₹"+Math.round(n).toLocaleString("en-IN");}
+  function fmtSigned(n){n=Math.round(n);return n<0?"("+"₹"+Math.abs(n).toLocaleString("en-IN")+")":"₹"+n.toLocaleString("en-IN");}
+  function round10(n){return Math.round(n/10)*10;}
+
+  function slabTax(ti,regime,ag){
+    var b;
+    if(regime==='new') b=[[400000,0],[800000,0.05],[1200000,0.10],[1600000,0.15],[2000000,0.20],[2400000,0.25],[Infinity,0.30]];
+    else if(ag==='senior') b=[[300000,0],[500000,0.05],[1000000,0.20],[Infinity,0.30]];
+    else if(ag==='super')  b=[[500000,0],[1000000,0.20],[Infinity,0.30]];
+    else                   b=[[250000,0],[500000,0.05],[1000000,0.20],[Infinity,0.30]];
+    var tax=0,lower=0;
+    for(var i=0;i<b.length;i++){var u=b[i][0],r=b[i][1];if(ti>lower)tax+=(Math.min(ti,u)-lower)*r;lower=u;if(ti<=u)break;}
+    return tax;
+  }
+  function basicExemption(regime,ag){ if(regime==='new')return 400000; if(ag==='senior')return 300000; if(ag==='super')return 500000; return 250000; }
+
+  function surcharge(ti,taxNormal,taxSpecial,regime,ag){
+    var rate=0,threshold=0,prevRate=0;
+    if(regime==='new'){
+      if(ti>20000000){rate=0.25;threshold=20000000;prevRate=0.15;}
+      else if(ti>10000000){rate=0.15;threshold=10000000;prevRate=0.10;}
+      else if(ti>5000000){rate=0.10;threshold=5000000;prevRate=0;}
+      else return {s:0,relief:0};
+    } else {
+      if(ti>50000000){rate=0.37;threshold=50000000;prevRate=0.25;}
+      else if(ti>20000000){rate=0.25;threshold=20000000;prevRate=0.15;}
+      else if(ti>10000000){rate=0.15;threshold=10000000;prevRate=0.10;}
+      else if(ti>5000000){rate=0.10;threshold=5000000;prevRate=0;}
+      else return {s:0,relief:0};
+    }
+    var rSp=Math.min(rate,0.15);
+    var sur=taxNormal*rate+taxSpecial*rSp;
+    var base=taxNormal+taxSpecial;
+    var taxAtT=slabTax(threshold,regime,ag), surAtT=taxAtT*prevRate;
+    var A=base+sur,B=taxAtT+surAtT,allowed=ti-threshold,relief=0;
+    if((A-B)>allowed){relief=(A-B)-allowed;sur-=relief;if(sur<0)sur=0;}
+    return {s:sur,relief:relief};
+  }
+
+  function hraExempt(){
+    if(hraMode==="amount")return num("hraAmount");
+    var basic=num("hraBasic"),recd=num("hraRecd"),rent=num("hraRent");
+    var metro=document.getElementById("hraMetro").checked;
+    var t2=rent-0.10*basic; if(t2<0)t2=0;
+    var ex=Math.min(recd,t2,(metro?0.50:0.40)*basic); if(ex<0)ex=0;
+    document.getElementById("hraExemptOut").textContent=fmt(ex);
+    return ex;
+  }
+  function applyCap(id,cap,noteId){
+    var raw=num(id),used=Math.min(raw,cap),note=document.getElementById(noteId);
+    if(note){if(raw>cap){note.style.display="block";note.textContent="Capped at "+fmt(cap)+" (entered "+fmt(raw)+").";}else note.style.display="none";}
+    return used;
+  }
+
+  function compute(regime,I){
+    var stdDed=regime==='new'?75000:50000;
+    var hra=regime==='new'?0:I.hra;
+    var netSal=I.grossSalary>0?Math.max(0,I.grossSalary-hra-stdDed):0;
+
+    var hp=0;
+    if(I.selfOcc){ hp=regime==='new'?0:-Math.min(I.loan24,200000); }
+    else { var nav=Math.max(0,I.rent-I.munTax),s24a=0.30*nav; hp=nav-s24a-I.loan24;
+      if(regime==='new'){if(hp<0)hp=0;}else{if(hp<-200000)hp=-200000;} }
+
+    var normalIncome=Math.max(0, netSal+hp+I.stcgSlab+I.business+I.other);
+
+    var via;
+    if(regime==='new'){ via=I.d80ccd2; }
+    else { var ttaCap=(I.age==='below60')?10000:50000;
+      via=Math.min(I.d80c,150000)+Math.min(I.d80ccd1b,50000)+I.d80ccd2+Math.min(I.d80d,100000)+Math.min(I.d80tta,ttaCap)+I.d80e+I.d80g+I.d80other; }
+    via=Math.min(via,normalIncome);
+    var normalAfterVIA=normalIncome-via;
+
+    var sp111=I.stcg111A, sp112A=Math.max(0,I.ltcg112A-125000), sp112=I.ltcg112;
+    var taxableCG=sp111+sp112A+sp112;
+
+    var t111=sp111,t112A=sp112A,t112=sp112;
+    if(I.resident){
+      var rem=Math.max(0,basicExemption(regime,I.age)-normalAfterVIA);
+      var u=Math.min(t111,rem);t111-=u;rem-=u;
+      u=Math.min(t112A,rem);t112A-=u;rem-=u;
+      u=Math.min(t112,rem);t112-=u;rem-=u;
+    }
+    var taxNormalGross=slabTax(normalAfterVIA,regime,I.age);
+    var taxSpecial=t111*0.20+t112A*0.125+t112*0.125;
+
+    var displayGTI=normalIncome+taxableCG;
+    var ti=round10(normalAfterVIA+taxableCG);
+
+    var rebate=0,mrRebate=0;
+    var thr=regime==='new'?1200000:500000, maxReb=regime==='new'?60000:12500;
+    if(I.resident && ti<=thr){ rebate=Math.min(taxNormalGross,maxReb); }
+    else if(regime==='new' && I.resident && ti>1200000){ mrRebate=Math.max(0,taxNormalGross-(ti-1200000)); }
+    var taxNormalNet=taxNormalGross-rebate-mrRebate;
+
+    var sur=surcharge(ti,taxNormalNet,taxSpecial,regime,I.age);
+    var taxBeforeCess=taxNormalNet+taxSpecial+sur.s;
+    var cess=0.04*taxBeforeCess;
+    var total=round10(taxBeforeCess+cess);
+
+    return {netSal:netSal,hp:hp,taxableCG:taxableCG,otherHeads:I.business+I.other+I.stcgSlab,
+      gti:displayGTI,via:via,ti:ti,taxNormalGross:taxNormalGross,taxSpecial:taxSpecial,
+      rebate:rebate+mrRebate,surcharge:sur.s,sRelief:sur.relief,cess:cess,total:total};
+  }
+
+  function gather(){
+    return {age:age,resident:document.getElementById("resident").checked,
+      grossSalary:num("grossSalary"),hra:hraExempt(),
+      selfOcc:document.getElementById("selfOccupied").checked,rent:num("rent"),munTax:num("munTax"),loan24:num("loan24"),
+      stcg111A:num("stcg111A"),ltcg112A:num("ltcg112A"),ltcg112:num("ltcg112"),stcgSlab:num("stcgSlab"),
+      business:num("bizIncome"),other:num("otherInc"),
+      d80c:applyCap("d80c",150000,"d80cCap"),d80ccd1b:applyCap("d80ccd1b",50000,"d80ccd1bCap"),
+      d80ccd2:num("d80ccd2"),d80d:applyCap("d80d",100000,"d80dCap"),
+      d80tta:applyCap("d80tta",(age==='below60'?10000:50000),"d80ttaCap"),
+      d80e:num("d80e"),d80g:num("d80g"),d80other:num("d80other")};
+  }
+
+  function cell(v,signed){ return signed?fmtSigned(v):fmt(v); }
+
+  function render(){
+    var I=gather();
+    var O=compute('old',I), N=compute('new',I);
+
+    var rows=[
+      {l:"Income from Salary", o:O.netSal, n:N.netSal},
+      {l:"Income from House Property", o:O.hp, n:N.hp, signed:true},
+      {l:"Capital Gains (taxable)", o:O.taxableCG, n:N.taxableCG},
+      {l:"Business &amp; Other Sources", o:O.otherHeads, n:N.otherHeads},
+      {rule:true},
+      {l:"Gross Total Income", o:O.gti, n:N.gti, bold:true},
+      {l:"Less: Chapter VI-A deductions", o:O.via, n:N.via},
+      {rule:true},
+      {l:"Total Income", o:O.ti, n:N.ti, bold:true},
+      {l:"Tax on normal income", o:O.taxNormalGross, n:N.taxNormalGross},
+      {l:"Tax on capital gains", o:O.taxSpecial, n:N.taxSpecial},
+      {l:"Less: Rebate u/s 87A", o:O.rebate, n:N.rebate},
+      {l:"Add: Surcharge", o:O.surcharge, n:N.surcharge},
+      {l:"Add: Cess @ 4%", o:O.cess, n:N.cess}
+    ];
+
+    var cheaper = O.total<N.total ? 'old' : (N.total<O.total ? 'new' : 'eq');
+
+    var html="";
+    rows.forEach(function(r){
+      if(r.rule){ html+='<tr class="row-rule"><td></td><td></td><td></td></tr>'; return; }
+      var cls=r.bold?'row-total':'';
+      html+='<tr class="'+cls+'">'
+          +'<td class="lbl">'+r.l+'</td>'
+          +'<td class="col-old">'+cell(r.o,r.signed)+'</td>'
+          +'<td class="col-new">'+cell(r.n,r.signed)+'</td>'
+          +'</tr>';
+    });
+    // total tax liability row
+    html+='<tr class="row-rule"><td></td><td></td><td></td></tr>';
+    html+='<tr class="row-total">'
+        +'<td class="lbl">Total Tax Liability</td>'
+        +'<td class="'+(cheaper==='old'?'cheaper':'')+'">'+fmt(O.total)+(cheaper==='old'?'<span class="badge-lower">Lower</span>':'')+'</td>'
+        +'<td class="'+(cheaper==='new'?'cheaper':'')+'">'+fmt(N.total)+(cheaper==='new'?'<span class="badge-lower">Lower</span>':'')+'</td>'
+        +'</tr>';
+    document.getElementById("cmpBody").innerHTML=html;
+
+    // verdict
+    var nm=document.getElementById("clientName").value.trim();
+    document.getElementById("vName").textContent = nm?nm+" · AY 2026-27":"Tax Comparison · AY 2026-27";
+    var head=document.getElementById("vHead"), save=document.getElementById("vSave");
+    if(O.total===0 && N.total===0){ head.textContent="No tax payable either way"; save.textContent=""; }
+    else if(cheaper==='eq'){ head.textContent="Both regimes are equal"; save.textContent=""; }
+    else {
+      var winner = cheaper==='old'?"Old Regime":"New Regime";
+      var diff = Math.abs(O.total-N.total);
+      head.textContent = winner+" is cheaper";
+      save.innerHTML = 'Saves <span class="amt">'+fmt(diff)+'</span> vs the other regime';
+    }
+
+    // surcharge relief note
+    var rn=document.getElementById("reliefNote");
+    var notes=[];
+    if(O.sRelief>0) notes.push("Old: marginal relief "+fmt(O.sRelief));
+    if(N.sRelief>0) notes.push("New: marginal relief "+fmt(N.sRelief));
+    if(notes.length){ rn.style.display="block"; rn.textContent="Surcharge marginal relief — "+notes.join(" · "); }
+    else rn.style.display="none";
+  }
+
+  function updateTtaLabel(){ document.getElementById("ttaLabel").textContent=(age==='below60')?"80TTA — savings bank interest":"80TTB — interest on deposits (senior)"; }
+
+  document.querySelectorAll("#ageSeg button").forEach(function(b){
+    b.addEventListener("click",function(){document.querySelectorAll("#ageSeg button").forEach(function(x){x.classList.remove("active");});b.classList.add("active");age=b.getAttribute("data-age");updateTtaLabel();render();});
+  });
+  document.querySelectorAll("#hraSeg button").forEach(function(b){
+    b.addEventListener("click",function(){document.querySelectorAll("#hraSeg button").forEach(function(x){x.classList.remove("active");});b.classList.add("active");hraMode=b.getAttribute("data-hra");
+      document.getElementById("hraAmountWrap").style.display=hraMode==="amount"?"block":"none";
+      document.getElementById("hraCalcWrap").classList.toggle("hidden",hraMode!=="calc");render();});
+  });
+  document.getElementById("selfOccupied").addEventListener("change",function(){document.getElementById("letOutWrap").classList.toggle("hidden",this.checked);render();});
+  document.getElementById("resetBtn").addEventListener("click",function(){
+    document.querySelectorAll("input[type=number]").forEach(function(i){i.value="";});
+    document.getElementById("d80c").value="150000";document.getElementById("d80ccd1b").value="50000";document.getElementById("d80d").value="75000";
+    document.getElementById("clientName").value="";
+    document.getElementById("selfOccupied").checked=true;document.getElementById("hraMetro").checked=false;document.getElementById("resident").checked=true;
+    document.getElementById("letOutWrap").classList.add("hidden");render();
+  });
+  document.querySelectorAll("input").forEach(function(i){i.addEventListener("input",render);i.addEventListener("change",render);});
+  updateTtaLabel(); render();
+})();
+</script>
+
+<!-- FLOATING BUTTONS -->
+<div class="float-btns">
+  <a href="https://wa.me/918147242775?text=Hello%20CA%20Praveen%2C%20I%20need%20your%20professional%20services."
+     class="float-btn float-btn-wa" target="_blank" title="WhatsApp">
+    <span class="tooltip">Chat on WhatsApp</span>
+    <svg viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+  <a href="tel:+918147242775" class="float-btn float-btn-call" title="Call">
+    <span class="tooltip">Call Now</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.69 12 19.79 19.79 0 011.62 3.42 2 2 0 013.6 1.2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L7.91 8.91A16 16 0 0012 13.09l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 14.1v2.82z"/></svg>
+  </a>
+</div>
+
+</body>
+</html>
